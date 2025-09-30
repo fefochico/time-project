@@ -1,0 +1,115 @@
+.navbar{
+    background: rgb(27, 27, 27) !important;
+}
+
+
+.input-dark {
+  background-color: #1f1f1f;
+  color: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0.5rem;
+  margin-bottom: 10px;
+}
+
+.input-dark::placeholder {
+  color: #bbb; /* gris claro visible sobre fondo oscuro */
+  opacity: 1;  /* importante para que se vea igual en todos los navegadores */
+}
+
+.input-dark:focus {
+  background-color: #2a2a2a;
+  border-color: #646cff;
+  outline: none;
+}
+
+
+
+
+
+
+
+.calendar-container{
+    padding: 0rem;  
+    width: 100%;
+}
+.columnDay-header {
+    display: inline-block; 
+    width: 14.28%;
+    text-align: center;
+    border: 1px solid #eee;
+    box-sizing: border-box;
+    padding: 0.5rem 0;
+}
+
+/* Contenedores de las Filas (Cabecera y Contenido) */
+.calendar-header-row,
+.calendar-content-row {
+    display: flex; /* Convierte el contenedor en un Flex Container */
+    width: 100%;
+    /* Asegura que no haya saltos de línea */
+    flex-wrap: nowrap; 
+}
+
+/* Estilo para las Celdas de la Cabecera */
+.calendar-header-cell {
+    /* flex-grow: 1, flex-shrink: 1, flex-basis: 0%. Esto hace que cada celda tome una parte igual del espacio disponible. */
+    flex: 1; 
+    
+    /* Estilos visuales */
+    text-align: center; 
+    border: 1px solid #eee; 
+    box-sizing: border-box; 
+    padding: 0.5rem 0; 
+}
+
+/* Estilo para las Columnas de Contenido (columnDay) */
+.columnDay {
+    /* Esto asegura que cada columna ocupe exactamente 1/7 del ancho */
+    flex: 1; 
+    width: 100%;
+    /* Estilos visuales */
+    border: 1px solid #eee;
+    box-sizing: border-box;
+    /* La altura de la columna será determinada por el contenido */
+    min-height: 200px; 
+}
+
+
+.modal-content {
+    border: 1px solid white !important;
+    border-radius: 5px !important;
+}
+
+.custom-danger {
+    color: #ff6b6b; /* Un rojo más suave */
+    font-size: 0.875rem; /* Tamaño de fuente ligeramente más pequeño */
+    margin-top: 0px; /* Espacio superior para separar del campo */
+}
+
+
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-form {
+    padding: 2rem;
+    padding-bottom: 100px;
+}
+
+.form-control {
+    margin-bottom: 0 !important;
+}
+
+.error-container {
+    min-height: 1.5rem; /* Ajusta este valor según el tamaño de fuente y el espacio que desees */
+}
+
+.credentials-error {
+    width: 100%;
+    padding-top: 0.5rem;
+    min-height: 50px; /* Ajusta este valor según el tamaño de fuente y el espacio que desees */
+}
