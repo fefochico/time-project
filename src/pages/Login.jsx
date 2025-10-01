@@ -54,11 +54,11 @@ export default function Login() {
             {errors.password && <span className="custom-danger">{errors.password.message}</span>}
           </div>
         </div>
-        <button type="submit" disabled={isSubmitting} style={{ padding: "0.5rem 1rem", background: "#646cff", color: "#fff", border: "none", borderRadius: "4px", width: "100%"}}>
+        <button type="submit" disabled={isSubmitting} className="custom-button">
           {isSubmitting ? "Entrando..." : "Enviar"} {/* Indica estado de carga */}
         </button>
         <div className="credentials-error">
-          {errorCredentials && <p style={{ color: "red", background: "#fff", borderRadius: "4px", padding: "0.5rem"}}>{errorCredentials}</p>}
+          {errorCredentials && <p className="credentials">{errorCredentials}</p>}
         </div>
       </form>
     </div>

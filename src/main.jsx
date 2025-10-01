@@ -5,6 +5,8 @@ import { RouterProvider } from 'react-router-dom'
 import App from './App.jsx'
 import Login from './pages/Login.jsx'
 import Home from './pages/Home.jsx'
+import Projects from './pages/Projects.jsx'
+import Activities from './pages/Activities.jsx'
 import PrivateRoute from './PrivateRoute.jsx'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
@@ -24,8 +26,19 @@ const router= createBrowserRouter([
       },
       {
         path: "home",
-        element: <PrivateRoute><Home/></PrivateRoute>
-      }
+        element: <PrivateRoute><Home/></PrivateRoute>,
+        children: [
+          {
+            index: true,
+            element: <PrivateRoute><Activities/></PrivateRoute>
+          },
+          {
+          path: "projects",
+          element: <PrivateRoute><Projects/></PrivateRoute>
+          }
+        ]
+      },
+
     ]
   }
 ]);

@@ -1,30 +1,40 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
-import MyModal from "./MyModal";
 import { ActivityContext } from "../contexts/ActivityContext";   
 import { useForm } from "react-hook-form";
+import { ProjectContext } from "../contexts/ProjectContext";
 
 
-
-export default function ModalForm({ showModal, setShowModal, activity, setActivity }) {
+export default function ModalFormActivity({showModal, activity}) {
     const {listActivities, setListActivities} = useContext(ActivityContext);
+    const {listProjects}= useContext(ProjectContext);
+    const [show, setShow] = useState(false);
 
     const { 
         register, 
         handleSubmit, 
-        watch, 
         formState: { errors },
         reset
     } = useForm({
       defaultValues: {
-        project: activity ? activity.project : "",
-        description: activity ? activity.description : "",
-        time: activity ? activity.time : ""
+        project: activity?.project || "",
+        description: activity?.description || "",
+        time: activity?.time ? String(activity.time) : ""
       }
     });
 
+    useEffect(() => {
+      if(!activity) return;
+      reset({
+        project: activity?.project || "",
+        description: activity?.description || "",
+        time: activity?.time ? String(activity.time) : ""
+      });
+      setShow(true);
+    }, [showModal]);
+
+
     function saveNewActivity(formData){
-      console.log("Form Data Submitted: ", formData);
       const newOrUpdatedActivity = {
         ...activity,
         ...formData
@@ -35,21 +45,19 @@ export default function ModalForm({ showModal, setShowModal, activity, setActivi
         const updatedActivities = listActivities.map(act => act.id === activity.id ? newOrUpdatedActivity : act);
         setListActivities(updatedActivities); 
       }
-      setActivity(null);
-      setShowModal();
-      reset()
+      setShow(false);
+      reset();
     }
 
     function handleClose(){
-      setActivity(null);
-      setShowModal();
-      reset()
+      setShow(false);
+      reset();
     }
 
     return (
-      <MyModal show={showModal} setVisibility={handleClose}>
+      <Modal show={show} onHide={handleClose} centered size="lg">
         <Modal.Header closeButton>
-            <Modal.Title>Añadir trabajo realizado</Modal.Title>
+            <Modal.Title>{activity && activity.id ? "Editar" : "Añadir"} trabajo realizado</Modal.Title>
         </Modal.Header>
         <Modal.Body>
             <form id="activity-form" onSubmit={handleSubmit(saveNewActivity)}>
@@ -64,9 +72,9 @@ export default function ModalForm({ showModal, setShowModal, activity, setActivi
                 })}
                 >
                 <option value="" disabled>Selecciona un proyecto</option>
-                <option value="1">Proyecto 1</option>
-                <option value="2">Proyecto 2</option>
-                <option value="3">Proyecto 3</option>
+                {listProjects.map(project => (
+                  <option key={project.id} value={project.id}>{project.id}{' - '+project.name}</option>
+                ))}
                 </select>
                 <div className="error-container">
                   {errors.project && <p className="custom-danger">{errors.project.message}</p>}
@@ -101,10 +109,10 @@ export default function ModalForm({ showModal, setShowModal, activity, setActivi
             <Button variant="secondary" onClick={handleClose}>
             Cerrar
             </Button>
-            <Button variant="primary" type="submit" form="activity-form">
+            <Button variant="primary" style={{background:"#646cff", border:"none"}} type="submit" form="activity-form">
             Guardar cambios
             </Button>
         </Modal.Footer>
-      </MyModal>
+      </Modal>
     );
 }

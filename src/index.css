@@ -113,3 +113,32 @@
     padding-top: 0.5rem;
     min-height: 50px; /* Ajusta este valor según el tamaño de fuente y el espacio que desees */
 }
+
+.credentials{
+    color: red;
+    background: #fff;
+    border-radius: 4px;
+    padding: 0.5rem;
+}
+
+
+.custom-button{
+    padding: 0.5rem 1rem;
+    background: #646cff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    width: 100%;
+}
+
+
+
+
+
+.activity-card {
+    cursor: pointer;
+    margin: 0.5rem;
+    padding: 0;
+    background: #4ca571ff;
+    transition: transform 0.2s, box-shadow 0.2s;
+}

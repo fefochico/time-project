@@ -1,3 +1,6 @@
 import { createContext } from "react";
 
-export const ActivityContext = createContext([])
+export const ActivityContext = createContext({
+    listActivities: [],
+    setListActivities: () => {}
+});
