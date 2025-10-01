@@ -23,6 +23,11 @@
   outline: none;
 }
 
+.custom-brand-navbar{
+    color: white;
+    padding-left: 85px;
+    cursor: pointer
+}
 
 
 

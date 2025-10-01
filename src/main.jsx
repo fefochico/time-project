@@ -31,11 +31,11 @@ const router= createBrowserRouter([
         children: [
           {
             index: true,
-            element: <PrivateRoute><Activities/></PrivateRoute>
+            element: <Activities/>
           },
           {
           path: "projects",
-          element: <PrivateRoute><Projects/></PrivateRoute>
+          element: <Projects/>
           }
         ]
       },
