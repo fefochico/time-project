@@ -96,7 +96,7 @@ export default function ModalFormActivity({showModal, activity}) {
                 id="time" 
                 {...register("time", { 
                     required: "El tiempo es obligatorio", 
-                    valueAsNumber: true,
+                    valueAsNumber: "Debe ser un número entero",
                     min: { value: 1, message: "El tiempo mínimo es de una hora" } 
                 })} />
                 <div className="error-container">

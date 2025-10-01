@@ -10,6 +10,7 @@ import Activities from './pages/Activities.jsx'
 import PrivateRoute from './PrivateRoute.jsx'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
+import { Navigate} from 'react-router-dom';
 
 const router= createBrowserRouter([
   {
@@ -18,7 +19,7 @@ const router= createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Login/>
+        element: <Navigate to="/home" replace /> // ✅ El navegador redirige
       },
       {
         path: "login", 

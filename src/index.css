@@ -142,3 +142,23 @@
     background: #4ca571ff;
     transition: transform 0.2s, box-shadow 0.2s;
 }
+
+.table-container{
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    margin-top: 20px !important 
+}
+
+.scrollable-container{
+    max-height: calc(100vh - 200px) !important; 
+    overflow-y: auto !important
+}
+
+.custom-table{
+    table-layout: fixed !important
+}
+
+.custom-header-table{
+    background: #1b1b1b !important
+}

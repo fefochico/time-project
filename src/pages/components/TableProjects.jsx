@@ -16,19 +16,19 @@ export default function TableProjects() {
 
     return (
     <Container>
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "20px" }}>
-            <h3 style={{ padding: "10px" }}>Proyectos</h3>
-            <div style={{ width: "100%" }}>
+        <div className="table-container">
+            <h3 className="p-2">Proyectos</h3>
+            <div className="w-100">
                 <button className="custom-button" onClick={()=>setVisibilityModal({name: "", description: "", date:null})} style={{ marginBottom: "10px", width: "200px", float: "right" }}>Agregar Proyecto</button>
             </div>
-            <div style={{ width: "100%", maxHeight: "calc(100vh - 200px)", overflowY: "auto" }}>
-                <Table striped bordered hover style={{ width: "100%", tableLayout: "fixed" }}>
+            <div className="w-100 scrollable-container">
+                <Table striped bordered hover className="w-100">
                     <thead style={{ position: "sticky", top: 0, zIndex: 1 }}>
                         <tr>
-                        <th style={{ width: "10%", background: "#1b1b1b" }}>ID</th>
-                        <th style={{ width: "30%", background: "#1b1b1b" }}>Nombre</th>
-                        <th style={{ width: "40%", background: "#1b1b1b" }}>Descripción</th>
-                        <th style={{ width: "20%", background: "#1b1b1b" }}>Fecha de modificación</th>
+                        <th className="custom-header-table" style={{ width: "10%" }}>ID</th>
+                        <th className="custom-header-table" style={{ width: "30%" }}>Nombre</th>
+                        <th className="custom-header-table" style={{ width: "40%"}}>Descripción</th>
+                        <th className="custom-header-table" tyle={{ width: "20%"}}>Fecha de modificación</th>
                     </tr>
                 </thead>
                 <tbody>

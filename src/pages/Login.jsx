@@ -55,7 +55,7 @@ export default function Login() {
           </div>
         </div>
         <button type="submit" disabled={isSubmitting} className="custom-button">
-          {isSubmitting ? "Entrando..." : "Enviar"} {/* Indica estado de carga */}
+          {isSubmitting ? "Entrando..." : "Enviar"}
         </button>
         <div className="credentials-error">
           {errorCredentials && <p className="credentials">{errorCredentials}</p>}
