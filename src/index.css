@@ -167,3 +167,16 @@
 .custom-header-table{
     background: #1b1b1b !important
 }
+
+
+
+
+/* Oculta la flecha (caret) del dropdown de la clase personalizada */
+.svg-dropdown-toggle .dropdown-toggle::after {
+    display: none !important;
+}
+
+/* Opcional: Esto elimina el padding que a veces queda después de quitar la flecha */
+.svg-dropdown-toggle .dropdown-toggle {
+    padding-right: 0 !important;
+}

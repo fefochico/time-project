@@ -1,24 +1,42 @@
-import { useEffect, useState } from "react";
+import { act, useEffect, useState } from "react";
 import { useContext } from "react";
 import { DateContext } from "../contexts/DateContext";
 import { ActivityContext } from "../contexts/ActivityContext";
 import ActivityCard from "./ActivityCard";
-import ModalFormActivity from "./ModalFormActivity";
+import ModalActivity from "./ModalActivity";
 
 export default function Calendar() {
     const {fecha} = useContext(DateContext);
     const [showModal, setShowModal]= useState(false);
+    const [selectedDate, setSelectedDate]= useState('');
     const [datesOfWeeks, setDaysOfWeeks] = useState([]);
-    const [activity, setActivity] = useState(null);
+    const [actividadActual, setActividadActual] = useState(null);
     const daysOfWeek = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
 
-    const {listActivities} = useContext(ActivityContext);
+    const {listActivities, setListActivities} = useContext(ActivityContext);
 
-    function setVisibilityModal(activity = null){
-      if(activity && (activity.project && activity.description && activity.time || activity.date)){
-        setActivity(activity);
-        setShowModal(!showModal)
-      }
+    const handleGuardar = (datos) => {
+        if (actividadActual) {
+            setListProjects(prev =>
+                prev.map(p => (p.id === actividadActual.id ? datos : p))
+            );
+        } else {
+            datos.date= selectedDate;
+            datos.id= (Math.random()*100000).toFixed();
+            setListActivities(prev => [...prev, datos]);
+        }
+        setActividadActual(null);
+    };
+
+    function openModalNew(index){
+        setSelectedDate(datesOfWeeks[index].date)
+        setActividadActual(null);
+        setTimeout(()=>setShowModal(true),100);
+    }
+
+    function openModalEdit(activity){
+        setActividadActual(activity);
+        setTimeout(()=>setShowModal(true),100);
     }
 
     function getStringDate(date) {
@@ -65,9 +83,9 @@ export default function Calendar() {
               { daysOfWeek.map((day, index) => (
                   <div key={day} className="columnDay">
                       { listActivities.filter(activity => activity.date === datesOfWeeks[index].date).map(activity => (
-                          <ActivityCard key={activity.id} activity={activity} onClick={() => setVisibilityModal(activity)}/>
+                          <ActivityCard key={activity.id} activity={activity} onClick={() => openModalEdit(activity)}/>
                       ))}
-                      <button className="custom-button" style={{ width: "calc(100% - 1rem)", margin: "0.5rem" }} onClick={() => setVisibilityModal({date: datesOfWeeks[index].date})}>+ Añadir</button>
+                      <button className="custom-button" style={{ width: "calc(100% - 1rem)", margin: "0.5rem" }} onClick={()=> openModalNew(index)}>+ Añadir</button>
                   </div>
               ))}
             </div>
@@ -76,7 +94,12 @@ export default function Calendar() {
                     Total: {listActivities.filter(activity => activity.date === datesOfWeeks[index].date).reduce((sum, activity) => Number(sum) + Number(activity.time), 0)} h
                 </div>
             ))}
-            <ModalFormActivity showModal={showModal} activity={activity}/>
+            <ModalActivity 
+                show={showModal} 
+                handleClose={()=>setShowModal(false)} 
+                onSave={handleGuardar}
+                actividad={actividadActual}> 
+            </ModalActivity>
         </div>
   );
 }

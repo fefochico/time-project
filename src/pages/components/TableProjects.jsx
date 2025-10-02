@@ -1,49 +1,73 @@
-import { Table, Container } from "react-bootstrap";
 import { useState, useContext } from "react";
+import ModalProyecto from "./ModalProyecto";
 import { ProjectContext } from "../contexts/ProjectContext";
-import ModalFormProject from "./ModalFormProject";
+import { Row, Col } from "react-bootstrap";
 
 export default function TableProjects() {
-    const {listProjects} = useContext(ProjectContext);
-    const [project, setProject] = useState(null);
-    const [showModal, setShowModal]= useState(false);
+  const {listProjects, setListProjects}= useContext(ProjectContext);
+  const [showModal, setShowModal] = useState(false);
+  const [proyectoActual, setProyectoActual] = useState(null);
 
-
-    function setVisibilityModal(project = null){
-        setProject(project);
-        setShowModal(!showModal)
+  const handleGuardar = (datos) => {
+    datos.date= (new Date()).toLocaleDateString();
+    if (proyectoActual) {
+      setListProjects(prev =>
+        prev.map(p => (p.id === proyectoActual.id ? datos : p))
+      );
+    } else {
+      datos.id= (Math.random()*100000).toFixed();
+      setListProjects(prev => [...prev, datos]);
     }
+    setProyectoActual(null);
+  };
 
-    return (
-    <Container>
-        <div className="table-container">
-            <h3 className="p-2">Proyectos</h3>
+  const abrirModalNuevo = () => {
+    setProyectoActual(null);
+    setTimeout(()=>setShowModal(true),100);
+  };
+
+  const abrirModalEditar = (proyecto) => {
+    setProyectoActual(proyecto);
+    setTimeout(()=>setShowModal(true),100);
+  };
+
+  return (
+    <div className="container mt-4">
+      <h2>Gestión de Proyectos</h2>
+      <button className="btn btn-primary mb-3" onClick={abrirModalNuevo}>
+        Nuevo proyecto
+      </button>
+
+      <ul className="list-group">
+        {listProjects.map((p, idx) => (
+          <li key={idx} className="list-group-item d-flex justify-content-between align-items-center">
             <div className="w-100">
-                <button className="custom-button" onClick={()=>setVisibilityModal({name: "", description: "", date:null})} style={{ marginBottom: "10px", width: "200px", float: "right" }}>Agregar Proyecto</button>
+              <Row>
+              <Col sm={3}>
+              {p.id}
+              </Col>
+              <Col sm={6}>
+              {p.nombre}
+              </Col>
+              <Col sm={3}>
+              {p.date}
+              </Col>
+            </Row>
             </div>
-            <div className="w-100 scrollable-container">
-                <Table striped bordered hover className="w-100">
-                    <thead style={{ position: "sticky", top: 0, zIndex: 1 }}>
-                        <tr>
-                        <th className="custom-header-table" style={{ width: "10%" }}>ID</th>
-                        <th className="custom-header-table" style={{ width: "30%" }}>Nombre</th>
-                        <th className="custom-header-table" style={{ width: "40%"}}>Descripción</th>
-                        <th className="custom-header-table" tyle={{ width: "20%"}}>Fecha de modificación</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {listProjects.map(project => (
-                        <tr key={project.id} onClick={()=>setVisibilityModal(project)}>
-                            <td>{project.id}</td>
-                            <td>{project.name}</td>
-                            <td>{project.description}</td>
-                            <td>{project.date.toLocaleString()}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </Table>
-            </div>
-        </div>  
-        <ModalFormProject showModal={showModal} project={project}/>    
-    </Container>);
+            
+            <button className="btn btn-sm btn-outline-secondary" onClick={() => abrirModalEditar(p)}>
+              Editar
+            </button>
+          </li>
+        ))}
+      </ul>
+
+      <ModalProyecto
+        show={showModal}
+        handleClose={() => setShowModal(false)}
+        onSave={handleGuardar}
+        proyecto={proyectoActual}
+      />
+    </div>
+  );
 }

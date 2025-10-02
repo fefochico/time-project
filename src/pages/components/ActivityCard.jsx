@@ -9,10 +9,10 @@ export default function ActivityCard({ activity, onClick }) {
         <Card onClick={onClick} className="activity-card" >
             <Card.Body>
                 <Card.Text>
-                    <b>Proyecto:</b> {activity.project}{' - '+ listProjects.find(v=> v.id===activity.project).name}<br/>
+                    <b>Proyecto:</b> {activity.idproyecto}{' - '+ listProjects.find(v=> v.id===activity.idproyecto).nombre}<br/>
                     {activity.description && (
                         <>
-                            <b>Tarea:</b> {activity.description} <br/>
+                            <b>Tarea:</b> {activity.descripcion} <br/>
                         </>
                     )}
                     <b>Horas:</b> {activity.time}
