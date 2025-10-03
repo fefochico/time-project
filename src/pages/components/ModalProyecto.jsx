@@ -16,10 +16,11 @@ export default function ModalProyecto({ show, handleClose, onSave, proyecto }) {
   const onSubmit = (data) => {
     onSave(data);
     handleClose();
+    reset({ nombre: '', descripcion: ''});
   };
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={show} onHide={handleClose} centered size='lg'>
       <Modal.Header closeButton>
         <Modal.Title>{proyecto ? 'Editar Proyecto' : 'Nuevo Proyecto'}</Modal.Title>
       </Modal.Header>

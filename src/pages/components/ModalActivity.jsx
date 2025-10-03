@@ -18,10 +18,11 @@ export default function ModalActivity({ show, handleClose, onSave, actividad }) 
   const onSubmit = (data) => {
     onSave(data);
     handleClose();
+    reset({ idproyecto: '', descripcion: '', time: ''})
   };
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={show} onHide={handleClose} centered size='lg'>
       <Modal.Header closeButton>
         <Modal.Title>{actividad ? 'Editar Actividad' : 'Nueva Actividad'}</Modal.Title>
       </Modal.Header>

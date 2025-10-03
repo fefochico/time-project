@@ -31,6 +31,11 @@ export default function TableProjects() {
     setTimeout(()=>setShowModal(true),100);
   };
 
+  const cancelarModal = ()=>{
+    setProyectoActual(null);
+    
+  }
+
   return (
     <div className="container mt-4">
       <h2>Gestión de Proyectos</h2>
@@ -38,7 +43,24 @@ export default function TableProjects() {
         Nuevo proyecto
       </button>
 
-      <ul className="list-group">
+        <div style={{marginBottom: "10px", paddingLeft: "10px"}} className="-flex justify-content-between align-items-center">
+            <div className="w-100">
+            <Row>
+              <Col sm={3}>
+              ID
+              </Col>
+              <Col sm={5}>
+              Nombre
+              </Col>
+              <Col sm={3}>
+              Fecha de modificiación
+              </Col>
+              <Col>
+              </Col>
+            </Row>
+            </div>
+        </div>
+      <ul className="list-group" style={{maxHeight: "calc(100vh - 300px)", overflowY: "auto"}}>
         {listProjects.map((p, idx) => (
           <li key={idx} className="list-group-item d-flex justify-content-between align-items-center">
             <div className="w-100">
@@ -46,18 +68,19 @@ export default function TableProjects() {
               <Col sm={3}>
               {p.id}
               </Col>
-              <Col sm={6}>
+              <Col sm={5}>
               {p.nombre}
               </Col>
               <Col sm={3}>
               {p.date}
               </Col>
+              <Col sm={1}>
+                <button className="btn btn-sm btn-outline-secondary" onClick={() => abrirModalEditar(p)}>
+                Editar
+                </button>
+              </Col>
             </Row>
             </div>
-            
-            <button className="btn btn-sm btn-outline-secondary" onClick={() => abrirModalEditar(p)}>
-              Editar
-            </button>
           </li>
         ))}
       </ul>
