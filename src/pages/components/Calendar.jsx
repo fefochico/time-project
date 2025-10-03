@@ -17,7 +17,7 @@ export default function Calendar() {
 
     const handleGuardar = (datos) => {
         if (actividadActual) {
-            setListProjects(prev =>
+            setListActivities(prev =>
                 prev.map(p => (p.id === actividadActual.id ? datos : p))
             );
         } else {
